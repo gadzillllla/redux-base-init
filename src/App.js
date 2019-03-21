@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import { actionPlus, actionMinus } from './actions/mainActions';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <button onClick={this.props.actionMinus}>-</button>
+        <span>{this.props.counter}</span>
+        <button onClick={this.props.actionPlus}>+</button>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  counter: state.mainReducer.counter
+});
+
+export default connect(
+  mapStateToProps,
+  { actionPlus, actionMinus }
+)(App);
